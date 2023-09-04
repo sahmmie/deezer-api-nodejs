@@ -1,0 +1,39 @@
+service: deezer-music-be
+
+configValidationMode: error
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  timeout: 30
+  runtime: nodejs18.x
+  region: us-east-1
+
+  # you can define service wide environment variables here
+  environment:
+    API_URL: https://api.deezer.com
+    CREDENTIALS: true
+    SECRET_KEY: secretKey
+    LOG_FORMAT: prod
+    LOG_DIR: ../logs
+
+functions:
+  hello:
+    handler: handler.hello
+    #    The following are a few example events you can configure
+    #    NOTE: Please make sure to change your handler code to work with those events
+    #    Check the event documentation for details
+    events:
+      - http: ANY /{proxy+}
+      - http: ANY /
+# you can add CloudFormation resource templates here
+#resources:
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: my-new-bucket
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"
